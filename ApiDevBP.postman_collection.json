@@ -1,0 +1,129 @@
+{
+	"info": {
+		"_postman_id": "a2b21477-d137-4aba-a5da-0eb71237d32b",
+		"name": "ApiDevBP",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14675526"
+	},
+	"item": [
+		{
+			"name": "CreateUser",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Julian\",\r\n    \"lastname\": \"Ravelli\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44324/Users/",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44324",
+					"path": [
+						"Users",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetUsers",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44324/Users/",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44324",
+					"path": [
+						"Users",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateUser",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"name\",\r\n    \"lastname\": \"lastname\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44324/Users/",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44324",
+					"path": [
+						"Users",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteUser",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"name\",\r\n    \"lastname\": \"lastname\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44324/Users/",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44324",
+					"path": [
+						"Users",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

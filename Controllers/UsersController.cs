@@ -1,51 +1,71 @@
-using ApiDevBP.Entities;
 using ApiDevBP.Models;
+using ApiDevBP.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using SQLite;
-using System.Reflection;
 
 namespace ApiDevBP.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class UsersController : ControllerBase
+    public class UsersController : BaseController
     {
-        private readonly  SQLiteConnection _db;
-        
-        private readonly ILogger<UsersController> _logger;
+        private readonly IUserService _userService;
 
-        public UsersController(ILogger<UsersController> logger)
+        public UsersController(ILogger<UsersController> logger, IUserService userService) : base(logger)
         {
             _logger = logger;
-            string localDb = Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "localDb");
-            _db = new SQLiteConnection(localDb);
-            _db.CreateTable<UserEntity>();
+            _userService = userService;
         }
 
         [HttpPost]
-        public async Task<IActionResult> SaveUser(UserModel user)
+        public async Task<IActionResult> SaveUser([FromBody] UserModel user)
         {
-            var result = _db.Insert(new UserEntity()
+            try
             {
-                Name = user.Name,
-                Lastname = user.Lastname
-            });
-            return Ok(result > 0);
+                return GetObjectResult(await _userService.CreateUser(user).ConfigureAwait(false));
+            }
+            catch (Exception ex)
+            {
+                return GetErrorObjectResult(ex);
+            }
         }
 
         [HttpGet]
         public async Task<IActionResult> GetUsers()
         {
-            var users = _db.Query<UserEntity>($"Select * from Users");
-            if (users != null)
+            try
             {
-                return Ok(users.Select(x=> new UserModel()
-                {
-                    Name = x.Name,
-                    Lastname = x.Lastname
-                }));
+                return GetObjectResult(await _userService.GetUsers().ConfigureAwait(false));
             }
-            return NotFound();
+            catch (Exception ex)
+            {
+                return GetErrorObjectResult(ex);
+            }
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateUser([FromBody] UserModel user)
+        {
+            try
+            {
+                return GetObjectResult(await _userService.UpdateUser(user).ConfigureAwait(false));
+            }
+            catch (Exception ex)
+            {
+                return GetErrorObjectResult(ex);
+            }
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteUser([FromBody] UserModel user)
+        {
+            try
+            {
+                return GetObjectResult(await _userService.DeleteUser(user).ConfigureAwait(false));
+            }
+            catch (Exception ex)
+            {
+                return GetErrorObjectResult(ex);
+            }
         }
 
     }
